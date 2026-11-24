@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Verificación Facial</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Estado</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Mensaje:</strong> {{ statusMessage }}</p>
+      <p *ngIf="sessionId">
+        <strong>Sesión:</strong> <ion-badge color="primary">{{ sessionId }}</ion-badge>
+      </p>
+      <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>1. Imágenes</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button expand="block" fill="outline" (click)="tomarFoto('referencia')">
+        Elegir Foto de Referencia
+      </ion-button>
+      <img *ngIf="referencePreview" [src]="referencePreview" alt="Referencia" style="max-height: 160px; margin: 8px auto; display: block; border-radius: 8px;" />
+
+      <ion-button expand="block" (click)="tomarFoto('captura')" class="ion-margin-top">
+        Tomar Foto con Cámara
+      </ion-button>
+      <img *ngIf="capturedPreview" [src]="capturedPreview" alt="Capturada" style="max-height: 160px; margin: 8px auto; display: block; border-radius: 8px;" />
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>2. Acciones AWS</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button expand="block" (click)="iniciarSesionLiveness()" [disabled]="loading">
+        Iniciar Sesión (getSessionId)
+      </ion-button>
+      <ion-button expand="block" color="secondary" (click)="compararRostros()" [disabled]="loading" class="ion-margin-top">
+        Comparar Rostros (compareFace)
+      </ion-button>
+      <ion-button expand="block" color="tertiary" (click)="consultarResultados()" [disabled]="loading" class="ion-margin-top">
+        Consultar Resultado (getSessionResults)
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="resultData">
+    <ion-card-header>
+      <ion-card-title>Respuesta</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <pre style="white-space: pre-wrap; font-size: 12px;">{{ resultData | json }}</pre>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
