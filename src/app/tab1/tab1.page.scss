@@ -1,0 +1,30 @@
+.liveness-fullscreen-content {
+  --padding-start: 0;
+  --padding-end: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+}
+
+.liveness-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+}
+
+.liveness-host {
+  width: 100%;
+  height: 100%;
+}
+
+::ng-deep #livenessContainer {
+  width: 100%;
+  height: 100%;
+
+  [data-testid='photosensitivity-warning'],
+  .amplify-liveness-photosensitivity-warning {
+    display: none !important;
+  }
+}
